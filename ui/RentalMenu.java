@@ -75,6 +75,7 @@ public class RentalMenu {
             System.out.println("Inga aktiva uthyrningar.");
         else
             active.forEach(r -> System.out.printf("%s - %s hyr %s (%s - %s)%n",
-                    r.getId(), r.getMember().getName(), r.getItem().getName(), r.getStartDate(), r.getEnDate()));
+                    r.getId(), r.getMember().getName(), r.getItem().getName(),
+                    r.getStartDate(), r.getEnDate()));
     }
 }

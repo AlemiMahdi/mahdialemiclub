@@ -123,18 +123,16 @@ public class MemberMenu {
         } else {
             System.out.println("\n" + title + ":");
 
-            // Tabellrubriker
             System.out.printf("%-5s %-25s %-10s%n", "ID", "Namn", "Nivå");
             System.out.println("-------------------------------------------------");
 
-            // Tabellinnehåll
             for (Member member : members) {
                 System.out.printf("%-5s %-25s %-10s%n",
                         member.getId(),
                         member.getName(),
                         member.getLevel());
             }
-            System.out.println(); // tom rad efter tabellen
+            System.out.println();
         }
     }
 }
