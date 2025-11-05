@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 import mahdialemiclub.model.Rental;
 import mahdialemiclub.repository.Inventory;
-import mahdialemiclub.service.MembershipService;
+import mahdialemiclub.repository.MemberRegistry;
 import mahdialemiclub.service.RentalService;
 
 public class RentalMenu {
     private RentalService rentalService;
     private Scanner scanner;
 
-    public RentalMenu(RentalService rentalService, MembershipService membershipService,
+    public RentalMenu(RentalService rentalService, MemberRegistry memberRegistry,
             Inventory inventory, Scanner scanner) {
         this.rentalService = rentalService;
         this.scanner = scanner;

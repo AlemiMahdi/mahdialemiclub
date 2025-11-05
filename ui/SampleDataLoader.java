@@ -5,11 +5,11 @@ import mahdialemiclub.model.Drone;
 import mahdialemiclub.model.GoPro;
 import mahdialemiclub.model.Member;
 import mahdialemiclub.repository.Inventory;
-import mahdialemiclub.service.MembershipService;
+import mahdialemiclub.repository.MemberRegistry;
 
 public class SampleDataLoader {
 
-    public static void loadSampleData(MembershipService membershipService, Inventory inventory) {
+    public static void loadSampleData(MemberRegistry membershipService, Inventory inventory) {
 
         membershipService.addMember("M1", "Mahdi Alemi", Member.MemberLevel.STUDENT);
         membershipService.addMember("M2", "Lars Blomgren", Member.MemberLevel.PREMIUM);
