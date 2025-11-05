@@ -15,11 +15,15 @@ public class MemberRegistry {
         this.members = new HashMap<>();
     }
 
-    public void addMember(Member member) {
-        if (members.containsKey(member.getId())) {
-            throw new IllegalArgumentException("Medlem med ID " + member.getId() + " finns redan i registret.");
-        }
-        members.put(member.getId(), member);
+    public Member addMember(String id, String name, Member.MemberLevel level) {
+
+        if (members.containsKey(id))
+            throw new IllegalArgumentException("Medlem med ID " + id + " finns redan i registret.");
+
+        Member member = new Member(id, name, level);
+        members.put(id, member);
+        return member;
+
     }
 
     public Member findMemberById(String id) {
@@ -28,10 +32,6 @@ public class MemberRegistry {
             throw new IllegalArgumentException("Medlem med detta ID " + id + " finns ej.");
         }
         return member;
-    }
-
-    public List<Member> getAllMembers() {
-        return new ArrayList<>(members.values());
     }
 
     public List<Member> searchMembersByName(String name) {
@@ -53,6 +53,10 @@ public class MemberRegistry {
 
     public boolean removeMember(String id) {
         return members.remove(id) != null;
+    }
+
+    public List<Member> getAllMembers() {
+        return new ArrayList<>(members.values());
     }
 
 }
