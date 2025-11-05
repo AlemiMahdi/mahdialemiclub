@@ -3,15 +3,17 @@ package mahdialemiclub.ui;
 import java.util.List;
 import java.util.Scanner;
 import mahdialemiclub.model.Member;
-import mahdialemiclub.service.MembershipService;
+import mahdialemiclub.repository.MemberRegistry;
 
 public class MemberMenu {
-    private MembershipService membershipService;
+
+    private MemberRegistry memberRegistry;
     private Scanner scanner;
 
-    public MemberMenu(MembershipService membershipService, Scanner scanner) {
-        this.membershipService = membershipService;
+    public MemberMenu(MemberRegistry memberRegistry, Scanner scanner) {
+
         this.scanner = scanner;
+        this.memberRegistry = memberRegistry;
     }
 
     public void displayMenu() {
@@ -55,7 +57,7 @@ public class MemberMenu {
         };
 
         try {
-            Member member = membershipService.addMember(id, name, level);
+            Member member = memberRegistry.addMember(id, name, level);
             System.out.println("Medlem " + member.getName() + " är tillagd.");
         } catch (Exception e) {
             System.out.println("Det gick ej att lägga till medlem: " + e.getMessage());
@@ -65,7 +67,7 @@ public class MemberMenu {
     private void searchMember() {
         System.out.print("Ange namnet på medlemmen du söker: ");
         String name = scanner.nextLine();
-        List<Member> members = membershipService.searchMembers(name);
+        List<Member> members = memberRegistry.searchMembersByName(name);
         if (members.isEmpty())
             System.out.println("Medlem hittades ej.");
         else
@@ -76,7 +78,7 @@ public class MemberMenu {
         System.out.print("Ange ID till medlem som ska uppdateras: ");
         String id = scanner.nextLine();
         try {
-            Member member = membershipService.findMember(id);
+            Member member = memberRegistry.findMemberById(id);
             System.out.print("Nytt namn (" + member.getName() + "): ");
             String newName = scanner.nextLine();
             System.out.println("Välj medlemsnivån (1.Standard 2.Student 3.Premium): ");
@@ -87,7 +89,7 @@ public class MemberMenu {
                 case 3 -> Member.MemberLevel.PREMIUM;
                 default -> member.getLevel();
             };
-            if (membershipService.updateMember(id, newName, newLevel))
+            if (memberRegistry.updateMember(id, newName, newLevel))
                 System.out.println("Medlem uppdaterad.");
             else
                 System.out.println("Gick ej att uppdatera medlem.");
@@ -97,7 +99,7 @@ public class MemberMenu {
     }
 
     private void listAllMembers() {
-        List<Member> members = membershipService.getAllMembers();
+        List<Member> members = memberRegistry.getAllMembers();
         if (members.isEmpty())
             System.out.println("Medlemsregistret är tomt");
         else
@@ -108,7 +110,7 @@ public class MemberMenu {
         System.out.print("Ange ID till medlem som ska tas bort: ");
         String id = scanner.nextLine();
         try {
-            if (membershipService.removeMember(id))
+            if (memberRegistry.removeMember(id))
                 System.out.println("Medlem borttagen.");
             else
                 System.out.println("Kunde ej hitta medlem.");

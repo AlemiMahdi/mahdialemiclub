@@ -2,18 +2,18 @@ package mahdialemiclub.ui;
 
 import java.util.Scanner;
 import mahdialemiclub.repository.Inventory;
-import mahdialemiclub.service.MembershipService;
+import mahdialemiclub.repository.MemberRegistry;
 import mahdialemiclub.service.RentalService;
 
 public class MainMenu {
     private Scanner scanner;
-    private MembershipService membershipService;
+    private MemberRegistry memberRegistry;
     private RentalService rentalService;
     private Inventory inventory;
 
-    public MainMenu(MembershipService membershipService, RentalService rentalService, Inventory inventory) {
+    public MainMenu(MemberRegistry memberRegistry, RentalService rentalService, Inventory inventory) {
         this.scanner = new Scanner(System.in);
-        this.membershipService = membershipService;
+        this.memberRegistry = memberRegistry;
         this.rentalService = rentalService;
         this.inventory = inventory;
     }
@@ -36,9 +36,9 @@ public class MainMenu {
             }
 
             switch (choice) {
-                case 1 -> new MemberMenu(membershipService, scanner).displayMenu();
+                case 1 -> new MemberMenu(memberRegistry, scanner).displayMenu();
                 case 2 -> new ItemMenu(inventory, scanner).displayMenu();
-                case 3 -> new RentalMenu(rentalService, membershipService, inventory, scanner).displayMenu();
+                case 3 -> new RentalMenu(rentalService, memberRegistry, inventory, scanner).displayMenu();
                 case 4 -> new FinancialMenu(rentalService).displayMenu();
                 case 0 -> {
                     System.out.println("Tack för användning av tjänsten! Välkommen åter!");
